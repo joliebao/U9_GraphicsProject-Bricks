@@ -13,6 +13,14 @@ public class DrawPanel extends JPanel implements MouseListener {
         randomizing();
     }
 
+    public void timedEvent(){
+        long time = System.currentTimeMillis();
+        System.out.println(time);
+        if (time % 150 == 0) {
+            randomizing();
+        }
+    }
+
     public void randomizing(){
         for (int row = 0; row < 30; row++){
             for (int col = 0; col < 40; col++){
@@ -33,6 +41,8 @@ public class DrawPanel extends JPanel implements MouseListener {
             int x = 5;
             for (int cols = 0; cols < 40; cols++){
                 g.drawRect(x,y,20,20);
+
+                timedEvent();
 
                 if (grid[rows][cols] == 1){ // if true
                     g2.setColor(Color.red);
