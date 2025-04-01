@@ -4,19 +4,20 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import java.util.ArrayList;
 
-public class DrawPanel extends JPanel {
-    private boolean[][] grid;
+public class DrawPanel extends JPanel implements MouseListener {
+    private int[][] grid;
 
     public DrawPanel() {
-        grid = new boolean[30][40];
+        grid = new int[30][40];
+        this.addMouseListener(this);
+        randomizing();
+    }
+
+    public void randomizing(){
         for (int row = 0; row < 30; row++){
             for (int col = 0; col < 40; col++){
-                double randomizer = Math.random();
-                if (randomizer <= 0.3){
-                    grid[row][col] = true;
-                } else {
-                    grid[row][col] = false;
-                }
+                int randomizer = (int) (Math.random() * 8 + 1);
+                grid[row][col] = randomizer;
             }
         }
     }
@@ -33,10 +34,20 @@ public class DrawPanel extends JPanel {
             for (int cols = 0; cols < 40; cols++){
                 g.drawRect(x,y,20,20);
 
-                if (grid[rows][cols]){
+                if (grid[rows][cols] == 1){ // if true
                     g2.setColor(Color.red);
-                } else {
+                } else if (grid[rows][cols] == 2) {
                     g2.setColor(Color.darkGray);
+                } else if (grid[rows][cols] == 3) {
+                    g2.setColor(Color.cyan);
+                } else if (grid[rows][cols] == 4) {
+                    g2.setColor(Color.blue);
+                } else if (grid[rows][cols] == 5) {
+                    g2.setColor(Color.magenta);
+                } else if (grid[rows][cols] == 6) {
+                    g2.setColor(Color.orange);
+                } else if (grid[rows][cols] == 7) {
+                    g2.setColor(Color.yellow);
                 }
                 g2.fillRect(x, y, 20,20);
                 g2.setColor(Color.BLACK);
@@ -47,4 +58,28 @@ public class DrawPanel extends JPanel {
         }
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        randomizing();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
