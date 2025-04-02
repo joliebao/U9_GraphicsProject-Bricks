@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class BrickLayout {
-
+    private int l = 1;
     private ArrayList<Brick> bricks;
     private int[][] brickLayout;
     private int cols;
@@ -30,6 +30,7 @@ public class BrickLayout {
     }
 
     public void doOneBrick() {
+        int numRowsFilled = 1;
         if (!bricks.isEmpty()) {   // if there are more bricks
             Brick b = bricks.remove(0);
 
@@ -37,15 +38,24 @@ public class BrickLayout {
             boolean placed = false;
 
             while (!placed && currRow >= 0) {
-                if (!checkBrickSpot(currRow, b.getStart()) && !checkBrickSpot(currRow, b.getEnd())) { // if true; index has 1
-                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                        brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
+                if (!checkBrickSpot(currRow, b.getStart()) && !checkBrickSpot(currRow, b.getEnd())){
+                    for (int k = 0; k < ) // finish this condition to check every row using numRowsFilled amount of times
+                    if (currRow - 1 <= brickLayout.length && !checkBrickSpot(currRow - 1,b.getStart()) && !checkBrickSpot(currRow - 1, b.getEnd())) {
+                        for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                            brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
+                        }
+                        placed = true;
                     }
-                    placed = true;
                 } else {
                     currRow--;
+                    numRowsFilled ++;
                 }
             }
+            System.out.println();
+            System.out.println("(" + l + ")");
+            printBrickLayout();
+            System.out.println();
+            l++;
         }
     }
 

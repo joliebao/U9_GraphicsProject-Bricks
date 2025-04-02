@@ -10,7 +10,7 @@ public class Brick {
     }
 
     public int getStart() {
-        return start;
+        return start - 1;
     }
 
     public void setStart(int start) {
@@ -18,7 +18,7 @@ public class Brick {
     }
 
     public int getEnd() {
-        return end;
+        return end - 1;
     }
 
     public void setEnd(int end) {

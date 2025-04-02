@@ -2,23 +2,17 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DrawPanel extends JPanel implements MouseListener {
     private int[][] grid;
+    BrickLayout b = new BrickLayout("src/bricks", 40, true);
 
     public DrawPanel() {
         grid = new int[30][40];
         this.addMouseListener(this);
         randomizing();
-    }
-
-    public void timedEvent(){
-        long time = System.currentTimeMillis();
-        System.out.println(time);
-        if (time % 150 == 0) {
-            randomizing();
-        }
     }
 
     public void randomizing(){
@@ -42,22 +36,9 @@ public class DrawPanel extends JPanel implements MouseListener {
             for (int cols = 0; cols < 40; cols++){
                 g.drawRect(x,y,20,20);
 
-                timedEvent();
-
-                if (grid[rows][cols] == 1){ // if true
+                if (b.checkBrickSpot(rows, cols)){ // if true
+                    b.doOneBrick();
                     g2.setColor(Color.red);
-                } else if (grid[rows][cols] == 2) {
-                    g2.setColor(Color.darkGray);
-                } else if (grid[rows][cols] == 3) {
-                    g2.setColor(Color.cyan);
-                } else if (grid[rows][cols] == 4) {
-                    g2.setColor(Color.blue);
-                } else if (grid[rows][cols] == 5) {
-                    g2.setColor(Color.magenta);
-                } else if (grid[rows][cols] == 6) {
-                    g2.setColor(Color.orange);
-                } else if (grid[rows][cols] == 7) {
-                    g2.setColor(Color.yellow);
                 }
                 g2.fillRect(x, y, 20,20);
                 g2.setColor(Color.BLACK);
@@ -70,7 +51,7 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        randomizing();
+
     }
 
     @Override
