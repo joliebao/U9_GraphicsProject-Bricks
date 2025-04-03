@@ -10,6 +10,8 @@ public class BrickLayout {
     private int[][] brickLayout;
     private int cols;
 
+    private int currRow;
+
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
         this.cols = cols;
         ArrayList<String> fileData = getFileData(fileName);
@@ -22,6 +24,8 @@ public class BrickLayout {
             bricks.add(b);
         }
         brickLayout = new int[bricks.size()][cols];
+        currRow = brickLayout.length - 1;
+
         if (dropAllBricks) {
             while (bricks.size() != 0) {
                 doOneBrick();
@@ -30,27 +34,28 @@ public class BrickLayout {
     }
 
     public void doOneBrick() {
-        int numRowsFilled = 1;
+        // update the current row so that it checks if current row is applicable instead of the bottom row
         if (!bricks.isEmpty()) {   // if there are more bricks
             Brick b = bricks.remove(0);
-
-            int currRow = brickLayout.length - 1;
             boolean placed = false;
 
+            //checking last current row
+            if (currRow + 1 <= brickLayout.length - 1) {
+                currRow++;
+            }
+
             while (!placed && currRow >= 0) {
-                if (!checkBrickSpot(currRow, b.getStart()) && !checkBrickSpot(currRow, b.getEnd())){
-                    for (int k = 0; k < ) // finish this condition to check every row using numRowsFilled amount of times
-                    if (currRow - 1 <= brickLayout.length && !checkBrickSpot(currRow - 1,b.getStart()) && !checkBrickSpot(currRow - 1, b.getEnd())) {
-                        for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                            brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
-                        }
-                        placed = true;
-                    }
+                if (checkBrickSpot(currRow, b.getStart()) || checkBrickSpot(currRow, b.getEnd())) { // if bricks are ranged in 1s
+                    currRow--; // new line
                 } else {
-                    currRow--;
-                    numRowsFilled ++;
+                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                        brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
+                    }
+                    placed = true;
                 }
             }
+
+            //test code
             System.out.println();
             System.out.println("(" + l + ")");
             printBrickLayout();
