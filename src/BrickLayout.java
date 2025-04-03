@@ -36,22 +36,23 @@ public class BrickLayout {
     public void doOneBrick() {
         // update the current row so that it checks if current row is applicable instead of the bottom row
         if (!bricks.isEmpty()) {   // if there are more bricks
-            Brick b = bricks.remove(0);
+            Brick b = bricks.removeFirst();
             boolean placed = false;
 
-            //checking last current row
-            if (currRow + 1 <= brickLayout.length - 1) {
-                currRow++;
-            }
-
             while (!placed && currRow >= 0) {
-                if (checkBrickSpot(currRow, b.getStart()) || checkBrickSpot(currRow, b.getEnd())) { // if bricks are ranged in 1s
-                    currRow--; // new line
-                } else {
+                System.out.println(currRow);
+                if (currRow + 1 <= brickLayout.length - 1 && !checkBrickSpot(currRow + 1, b.getStart()) && !checkBrickSpot(currRow + 1, b.getEnd())) {
                     for (int i = b.getStart(); i <= b.getEnd(); i++) {
                         brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
                     }
                     placed = true;
+                } else if (!checkBrickSpot(currRow, b.getStart()) && !checkBrickSpot(currRow, b.getEnd())) {
+                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                        brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
+                    }
+                    placed = true;
+                } else {
+                    currRow--;
                 }
             }
 
