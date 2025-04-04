@@ -10,8 +10,6 @@ public class BrickLayout {
     private int[][] brickLayout;
     private int cols;
 
-    private int currRow;
-
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
         this.cols = cols;
         ArrayList<String> fileData = getFileData(fileName);
@@ -24,7 +22,6 @@ public class BrickLayout {
             bricks.add(b);
         }
         brickLayout = new int[bricks.size()][cols];
-        currRow = brickLayout.length - 1;
 
         if (dropAllBricks) {
             while (bricks.size() != 0) {
@@ -39,20 +36,18 @@ public class BrickLayout {
             Brick b = bricks.removeFirst();
             boolean placed = false;
 
-            while (!placed && currRow >= 0) {
-                System.out.println(currRow);
-                if (currRow + 1 <= brickLayout.length - 1 && !checkBrickSpot(currRow + 1, b.getStart()) && !checkBrickSpot(currRow + 1, b.getEnd())) {
-                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                        brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
-                    }
-                    placed = true;
-                } else if (!checkBrickSpot(currRow, b.getStart()) && !checkBrickSpot(currRow, b.getEnd())) {
-                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                        brickLayout[currRow][i] = 1; // changing value to 1 from beg. to end
-                    }
-                    placed = true;
-                } else {
-                    currRow--;
+            int currRow = 0;
+
+            while (!placed && currRow < brickLayout.length) {
+                int start = b.getStart();
+                int end = b.getEnd();
+                if (brickLayout[currRow][start] == 0 && brickLayout[currRow][end] == 0){
+                    currRow++;
+                }
+                currRow--;
+
+                for (int i = start; i < end; i++){
+                    brickLayout[currRow][i] = 1;
                 }
             }
 
