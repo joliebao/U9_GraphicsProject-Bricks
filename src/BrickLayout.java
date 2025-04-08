@@ -41,10 +41,7 @@ public class BrickLayout {
             int end = b.getEnd();
             boolean placed = false;
 
-            System.out.println(checkRow(currRow, start, end));
             while (!placed) {
-                System.out.println(currRow);
-                // determine which row it goes on
                 if (!checkRow(currRow, start, end)){ // IF FALSE!
                     if (currRow > 1 && currRow < brickLayout.length - 1) {
                         currRow++;
@@ -66,13 +63,6 @@ public class BrickLayout {
                 placed = true;
 
             }
-
-            //test code
-            System.out.println();
-            System.out.println("(" + l + ")");
-            printBrickLayout();
-            System.out.println();
-            l++;
         }
     }
 

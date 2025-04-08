@@ -38,10 +38,13 @@ public class DrawPanel extends JPanel implements MouseListener {
 
                 if (b.checkBrickSpot(rows, cols)){ // if true
                     b.doOneBrick();
-                    g2.setColor(Color.red);
+                    g2.setColor(Color.blue);
+                } else {
+                    g2.setColor(Color.lightGray);
+                    g2.fillRect(x, y, 20, 20);
                 }
                 g2.fillRect(x, y, 20,20);
-                g2.setColor(Color.BLACK);
+                g2.setColor(Color.black);
 
                 x += 25;
             }
@@ -51,7 +54,9 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        // add do brick methods here?
+        // need to replace one row at a time
+        // start with empty bricks, and save the old bricks
     }
 
     @Override
