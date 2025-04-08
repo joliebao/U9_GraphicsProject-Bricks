@@ -9,6 +9,7 @@ public class BrickLayout {
     private ArrayList<Brick> bricks;
     private int[][] brickLayout;
     private int cols;
+    private int currRow;
 
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
         this.cols = cols;
@@ -22,6 +23,8 @@ public class BrickLayout {
             bricks.add(b);
         }
         brickLayout = new int[bricks.size()][cols];
+
+        currRow = brickLayout.length - 1;
 
         if (dropAllBricks) {
             while (bricks.size() != 0) {
@@ -38,25 +41,22 @@ public class BrickLayout {
             int end = b.getEnd();
             boolean placed = false;
 
-            int currRow = brickLayout.length - 1;
-
             System.out.println(checkRow(currRow, start, end));
             while (!placed) {
                 System.out.println(currRow);
                 // determine which row it goes on
                 if (!checkRow(currRow, start, end)){ // IF FALSE!
                     if (currRow > 1 && currRow < brickLayout.length - 1) {
-                        currRow ++;
+                        currRow++;
                     }
                     if (checkRow(currRow, start, end)) {
-                        currRow --;
+                        currRow--;
                     }
                 } else {
-                    if (currRow > 1) {
-                        currRow --;
-                    }
-                    if (checkRow(currRow, start, end)) {
-                        currRow --;
+                    while (checkRow(currRow, start, end)) {
+                        if (checkRow(currRow, start, end) && (currRow > 1)) {
+                            currRow--;
+                        }
                     }
                 }
 
