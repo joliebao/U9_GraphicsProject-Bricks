@@ -42,24 +42,29 @@ public class BrickLayout {
 
             System.out.println(checkRow(currRow, start, end));
             while (!placed) {
+                System.out.println(currRow);
                 // determine which row it goes on
-                if (!checkBrickSpot(currRow, start) && !checkBrickSpot(currRow, end)){ // <<<<< THIS LINE SEEMS REMOVABLE BUT IT DOESN'T PRINT ANYTHING IF IT'S NOT HERE !????
-                    //// ^^^^^^ NOT SURE WHAT TO DO ABOUT THIS!
-                    if (currRow > 1 && currRow <= brickLayout.length - 2) {
-                        if (!checkRow(currRow, start, end)) {    // if false move down
-                            currRow++;
-                        } else {       // if true move up
-                            currRow--;
-                        }
+                if (!checkRow(currRow, start, end)){ // IF FALSE!
+                    if (currRow > 1 && currRow < brickLayout.length - 1) {
+                        currRow ++;
                     }
-                } else {    // added this else statement rlly late. Does not work as intended, so need to edit later
-                    currRow --;
+                    if (checkRow(currRow, start, end)) {
+                        currRow --;
+                    }
+                } else {
+                    if (currRow > 1) {
+                        currRow --;
+                    }
+                    if (checkRow(currRow, start, end)) {
+                        currRow --;
+                    }
                 }
-                // place amount of bricks
+
                 for (int i = start; i <= end; i++) {
                     brickLayout[currRow][i] = 1;
                 }
                 placed = true;
+
             }
 
             //test code
@@ -72,7 +77,7 @@ public class BrickLayout {
     }
 
     private boolean checkRow(int row, int start, int end){
-        for (int s = start; s < end; s++){
+        for (int s = start; s <= end; s++){
             if (brickLayout[row][s] == 1){
                 return true;
             }
