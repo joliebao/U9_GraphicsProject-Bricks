@@ -56,12 +56,10 @@ public class BrickLayout {
                         }
                     }
                 }
-
                 for (int i = start; i <= end; i++) {
                     brickLayout[currRow][i] = 1;
                 }
                 placed = true;
-
             }
         }
     }

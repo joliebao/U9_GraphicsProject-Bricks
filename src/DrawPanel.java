@@ -9,6 +9,8 @@ public class DrawPanel extends JPanel implements MouseListener {
     private int[][] grid;
     BrickLayout b = new BrickLayout("src/bricks", 40, true);
 
+    private boolean placed;
+
     public DrawPanel() {
         grid = new int[30][40];
         this.addMouseListener(this);
@@ -36,16 +38,18 @@ public class DrawPanel extends JPanel implements MouseListener {
             for (int cols = 0; cols < 40; cols++){
                 g.drawRect(x,y,20,20);
 
-                if (b.checkBrickSpot(rows, cols)){ // if true
-                    b.doOneBrick();
-                    g2.setColor(Color.blue);
-                } else {
-                    g2.setColor(Color.lightGray);
-                    g2.fillRect(x, y, 20, 20);
-                }
-                g2.fillRect(x, y, 20,20);
-                g2.setColor(Color.black);
+                g2.setColor(Color.lightGray);
+                g2.fillRect(x, y, 20, 20);
 
+                if (placed) {
+                    b.doOneBrick();
+                    b.printBrickLayout();
+                    g2.setColor(Color.blue);
+                    g2.fillRect(x, y, 20,20);
+                    placed = false;
+                }
+
+                g2.setColor(Color.black);
                 x += 25;
             }
             y += 25;
@@ -54,9 +58,9 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // add do brick methods here?
-        // need to replace one row at a time
-        // start with empty bricks, and save the old bricks
+        placed = true;
+//        b.doOneBrick();
+        System.out.println("clicked");
     }
 
     @Override
