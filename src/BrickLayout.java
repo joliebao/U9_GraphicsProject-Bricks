@@ -26,11 +26,12 @@ public class BrickLayout {
 
         currRow = brickLayout.length - 1;
 
-        if (dropAllBricks) {
-            while (bricks.size() != 0) {
-                doOneBrick();
-            }
-        }
+        // Drops all bricks at once
+//        if (dropAllBricks) {
+//            while (bricks.size() != 0) {
+//                doOneBrick();
+//            }
+//        }
     }
 
     public void doOneBrick() {

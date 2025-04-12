@@ -41,12 +41,9 @@ public class DrawPanel extends JPanel implements MouseListener {
                 g2.setColor(Color.lightGray);
                 g2.fillRect(x, y, 20, 20);
 
-                if (placed) {
-                    b.doOneBrick();
-                    b.printBrickLayout();
+                if (b.checkBrickSpot(rows,cols)) {
                     g2.setColor(Color.blue);
-                    g2.fillRect(x, y, 20,20);
-                    placed = false;
+                    g2.fillRect(x, y, 20, 20);
                 }
 
                 g2.setColor(Color.black);
@@ -58,9 +55,7 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        placed = true;
-//        b.doOneBrick();
-        System.out.println("clicked");
+        b.doOneBrick();
     }
 
     @Override
