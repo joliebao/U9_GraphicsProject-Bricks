@@ -34,6 +34,10 @@ public class BrickLayout {
 //        }
     }
 
+    public ArrayList<Brick> getBricks(){
+        return bricks;
+    }
+
     public void doOneBrick() {
         // update the current row so that it checks if current row is applicable instead of the bottom row
         if (!bricks.isEmpty()) {   // if there are more bricks
