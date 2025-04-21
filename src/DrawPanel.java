@@ -41,24 +41,34 @@ public class DrawPanel extends JPanel implements MouseListener {
                 g2.setColor(Color.lightGray);
                 g2.fillRect(x, y, 20, 20);
 
-                /* Part 1
+                /* Part 1 -- per click
                 if (b.checkBrickSpot(rows,cols)) {
                     g2.setColor(Color.blue);
                     g2.fillRect(x, y, 20, 20);
                 }
                 */
 
-                // Part 2
+                // Part 2 -- timed event
                 if (placed){
                     long time = System.currentTimeMillis();
 
                     while (!b.getBricks().isEmpty()) {
-                        if (System.currentTimeMillis() - time == 100) {
-                            time = System.currentTimeMillis();
-                            System.out.println("wow");
+                        if (System.currentTimeMillis() - time == 1000) {
+                            time = System.currentTimeMillis(); // reset time
+
+                            int brickStart = b.getBricks().getFirst().getStart();
+                            int brickEnd = b.getBricks().getFirst().getEnd();
+
                             b.doOneBrick();
-                            g2.setColor(Color.blue);
-                            g2.fillRect(x, y, 20, 20);
+
+                            System.out.println("periodic");
+                            for (int j = brickStart; j < brickEnd; j++) {
+                                g2.setColor(Color.blue);
+                                g2.fillRect(brickStart, 0, 20, 20);
+                            }
+                            // get each individual brick
+                            // change the color of the squares in the location
+                            // move the colors down for each time the time changes
                         }
                     }
                 }
@@ -78,6 +88,7 @@ public class DrawPanel extends JPanel implements MouseListener {
         */
 
         // Part 2
+        System.out.println("tap");
         placed = true;
     }
 
