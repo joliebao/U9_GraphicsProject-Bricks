@@ -61,13 +61,13 @@ public class DrawPanel extends JPanel implements MouseListener {
                         int start = bricks.getFirst().getStart();
                         int end = bricks.getFirst().getEnd();
 
-                        System.out.println(x);
-                        System.out.println(y);
-
                         for (int i = start; i < end; i++){
+                            System.out.println("a");
                             g2.setColor(Color.blue);
                             g2.fillRect(x, y, 20, 20);
+                            y += 25;
                         }
+                        g2.setColor(Color.black);
                     }
                 }
 
@@ -86,7 +86,7 @@ public class DrawPanel extends JPanel implements MouseListener {
         */
 
         // Part 2
-        System.out.println("tap");
+        System.out.println("tap");  // check if tapped
         placed = true;
     }
 
