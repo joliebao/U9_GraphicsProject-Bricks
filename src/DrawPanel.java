@@ -51,23 +51,22 @@ public class DrawPanel extends JPanel implements MouseListener {
                 // Part 2 -- timed event
                 ArrayList<Brick> bricks = b.getBricks();
 
-                // Part 2 -- timed event
                 long time = System.currentTimeMillis();
+                int start = 0;
+                int end = 0;
 
-                while (!bricks.isEmpty() && placed) {
+                if (placed && !bricks.isEmpty()) {
                     if (System.currentTimeMillis() - time == 500) {
                         time = System.currentTimeMillis(); // reset time
 
-                        int start = bricks.getFirst().getStart();
-                        int end = bricks.getFirst().getEnd();
+                        start = bricks.getFirst().getStart();
+                        end = bricks.getFirst().getEnd();
 
-                        for (int i = start; i < end; i++){
-                            System.out.println("a");
-                            g2.setColor(Color.blue);
-                            g2.fillRect(x, y, 20, 20);
-                            y += 25;
-                        }
-                        g2.setColor(Color.black);
+                        y += 25;
+                    }
+                    for (int i = start; i < end; i++){
+                        g2.setColor(Color.blue);
+                        g2.fillRect(x, y, 20, 20);
                     }
                 }
 
