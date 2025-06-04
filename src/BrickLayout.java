@@ -77,8 +77,17 @@ public class BrickLayout {
 
             for (int i = start; i < end; i++){
                 brickLayout[b.getY()][i] = 1;
-                b.setY();
             }
+
+            for (int r = 0; r < brickLayout.length; r++){
+                for (int c = 0; c < brickLayout[0].length; c++){
+                    if (checkBrickSpot(r,c)) {
+                        b.setY();
+                    }
+                }
+            }
+        } else if (checkBrickSpot(29, 8)) { // might need to add a condition here (8) is a place holder
+            // algorithm once at bottom
         }
 
         System.out.println();
