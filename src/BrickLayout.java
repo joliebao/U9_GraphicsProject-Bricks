@@ -69,6 +69,21 @@ public class BrickLayout {
         }
     }
 
+    public void fallingBricks(){
+        if (!bricks.isEmpty()){
+            Brick b = bricks.removeFirst();
+            int start = b.getStart();
+            int end = b.getEnd();
+
+            for (int i = start; i < end; i++){
+                brickLayout[b.getY()][i] = 1;
+                b.setY();
+            }
+        }
+
+        printBrickLayout();
+    }
+
     private boolean checkRow(int row, int start, int end){
         for (int s = start; s <= end; s++){
             if (brickLayout[row][s] == 1){

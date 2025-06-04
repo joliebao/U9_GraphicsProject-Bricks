@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class DrawPanel extends JPanel implements MouseListener {
     private int[][] grid;
+    private boolean clicked;
+    private boolean once = true;
     BrickLayout b = new BrickLayout("src/bricks", 40, true);
-
-    private boolean placed;
 
     public DrawPanel() {
         grid = new int[30][40];
@@ -49,10 +49,22 @@ public class DrawPanel extends JPanel implements MouseListener {
                 }
                 */
 
-                // Part 2 -- timed event
-                if (System.currentTimeMillis() - time == 300) {
+                if (clicked && once){
                     time = System.currentTimeMillis();
-                    dropBricks();
+                    once = false;
+                }
+
+                // Part 2 -- timed event
+                if (clicked) {
+                    if (System.currentTimeMillis() - time == 500) {
+                        time = System.currentTimeMillis();
+                        b.fallingBricks();
+
+                        if (b.checkBrickSpot(rows, cols)) {
+                            g2.setColor(Color.blue);
+                            g2.fillRect(x, y, 20, 20);
+                        }
+                    }
                 }
 
                 g2.setColor(Color.black);
@@ -60,12 +72,6 @@ public class DrawPanel extends JPanel implements MouseListener {
             }
             y += 25;
         }
-    }
-
-    public void dropBricks(){
-        // Part 2 -- timed event
-        b.doOneBrick();
-        b.printBrickLayout();
     }
 
     @Override
@@ -76,7 +82,7 @@ public class DrawPanel extends JPanel implements MouseListener {
         */
 
         // Part 2
-        placed = true;
+        clicked = true;
         System.out.println("clicked");
     }
 
