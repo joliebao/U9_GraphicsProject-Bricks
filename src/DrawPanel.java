@@ -56,7 +56,7 @@ public class DrawPanel extends JPanel implements MouseListener {
 
                 // Part 2 -- timed event
                 if (clicked) {
-                    if (System.currentTimeMillis() - time == 500) {
+                    if (System.currentTimeMillis() - time == 10) {
                         time = System.currentTimeMillis();
                         b.fallingBricks();
 
@@ -76,14 +76,13 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // UNCOMMENT HERE FOR
-        /* Part 1!!!
+        /* Part 1
         b.doOneBrick();
         */
 
         // Part 2
         clicked = true;
-        System.out.println("clicked");
+        System.out.println(clicked);
     }
 
     @Override

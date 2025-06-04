@@ -81,6 +81,7 @@ public class BrickLayout {
             }
         }
 
+        System.out.println();
         printBrickLayout();
     }
 
