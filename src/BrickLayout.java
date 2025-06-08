@@ -10,6 +10,7 @@ public class BrickLayout {
     private int[][] brickLayout;
     private int cols;
     private int currRow;
+    private long time;
 
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
         this.cols = cols;
@@ -25,21 +26,9 @@ public class BrickLayout {
         brickLayout = new int[bricks.size()][cols];
 
         currRow = brickLayout.length - 1;
-
-        // Drops all bricks at once
-//        if (dropAllBricks) {
-//            while (bricks.size() != 0) {
-//                doOneBrick();
-//            }
-//        }
     }
 
-    public ArrayList<Brick> getBricks(){
-        return bricks;
-    }
-
-    public void doOneBrick() {
-        // update the current row so that it checks if current row is applicable instead of the bottom row
+    public void doOneBrick() { // part 1
         if (!bricks.isEmpty()) {   // if there are more bricks
             Brick b = bricks.removeFirst();
             int start = b.getStart();
@@ -69,29 +58,43 @@ public class BrickLayout {
         }
     }
 
-    public void fallingBricks(){
-        if (!bricks.isEmpty()){
+    public void placeOneBrick(){ // redo
+        if (!bricks.isEmpty()) {
             Brick b = bricks.removeFirst();
+            System.out.println(b);
             int start = b.getStart();
             int end = b.getEnd();
 
-            for (int i = start; i < end; i++){
-                brickLayout[b.getY()][i] = 1;
-            }
+            System.out.println(start);
 
-            for (int r = 0; r < brickLayout.length; r++){
+            for (int i = start; i <= end; i++) {
+                System.out.println(i);
+                brickLayout[0][i] = 1;
+            }
+        }
+    }
+
+    public void fallingBricks(){
+        time = System.currentTimeMillis();
+
+        if (time - System.currentTimeMillis() == 100) {
+            time = System.currentTimeMillis();
+
+            for (int r = 0; r < brickLayout.length - 1; r++){
                 for (int c = 0; c < brickLayout[0].length; c++){
-                    if (checkBrickSpot(r,c)) {
-                        b.setY();
-                    }
+                    brickLayout[r+1][c] = brickLayout[r][c]; // change this so it moves down one
                 }
             }
-        } else if (checkBrickSpot(29, 8)) { // might need to add a condition here (8) is a place holder
-            // algorithm once at bottom
+
+            placeOneBrick();
+            printBrickLayout();
         }
 
-        System.out.println();
         printBrickLayout();
+    }
+
+    public boolean checkBrickSpot(int r, int c) {
+        return brickLayout[r][c] == 1;
     }
 
     private boolean checkRow(int row, int start, int end){
@@ -101,6 +104,13 @@ public class BrickLayout {
             }
         }
         return false;
+    }
+
+    public void printBrickLayout() {
+        for (int r = 0; r < brickLayout.length; r++) {
+            System.out.println(Arrays.toString(brickLayout[r]));
+        }
+        System.out.println();
     }
 
     public ArrayList<String> getFileData(String fileName) {
@@ -118,23 +128,5 @@ public class BrickLayout {
             fileData.add(s.nextLine());
 
         return fileData;
-    }
-
-    public void printBrickLayout() {
-        for (int r = 0; r < brickLayout.length; r++) {
-            for (int c = 0; c < brickLayout[0].length; c++) {
-                System.out.print(brickLayout[r][c] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean checkBrickSpot(int r, int c) {
-        if (brickLayout[r][c] == 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 }
