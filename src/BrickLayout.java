@@ -58,43 +58,50 @@ public class BrickLayout {
         }
     }
 
-    public void placeOneBrick(){ // redo
+    public Brick placeOneBrick(){ // redo
+        int start;
+        int end;
         if (!bricks.isEmpty()) {
             Brick b = bricks.removeFirst();
-            System.out.println(b);
-            int start = b.getStart();
-            int end = b.getEnd();
-
-            System.out.println(start);
+            start = b.getStart();
+            end = b.getEnd();
 
             for (int i = start; i <= end; i++) {
-                System.out.println(i);
                 brickLayout[0][i] = 1;
             }
+            return b;
         }
+        return null;
     }
 
-    public void fallingBricks(){
-        time = System.currentTimeMillis();
-
-        if (time - System.currentTimeMillis() == 100) {
-            time = System.currentTimeMillis();
-
-            for (int r = 0; r < brickLayout.length - 1; r++){
-                for (int c = 0; c < brickLayout[0].length; c++){
-                    brickLayout[r+1][c] = brickLayout[r][c]; // change this so it moves down one
+    public void fallingBricks(Brick b){
+        for (int r = 0; r < brickLayout.length - 1; r++){
+            for (int c = b.getStart(); c < b.getEnd(); c++){
+                if (!checkUnderBrick(r, c, b.getLength())) {
+                    brickLayout[r + 1][c] = 1;
+                    brickLayout[r][c] = 0;
                 }
             }
-
-            placeOneBrick();
-            printBrickLayout();
         }
-
         printBrickLayout();
     }
 
     public boolean checkBrickSpot(int r, int c) {
         return brickLayout[r][c] == 1;
+    }
+
+    public boolean checkUnderBrick(int r, int c, int length){
+        int count = 0;
+        for (int i = c; i < c + length; i++){
+            if (brickLayout[r+1][c] == 1){
+                count++;
+            }
+        }
+
+        if (count == length){
+            return true;
+        }
+        return false;
     }
 
     private boolean checkRow(int row, int start, int end){
@@ -108,7 +115,10 @@ public class BrickLayout {
 
     public void printBrickLayout() {
         for (int r = 0; r < brickLayout.length; r++) {
-            System.out.println(Arrays.toString(brickLayout[r]));
+            System.out.println();
+            for (int c = 0; c < brickLayout[0].length; c++) {
+                System.out.print(brickLayout[r][c] + " ");
+            }
         }
         System.out.println();
     }

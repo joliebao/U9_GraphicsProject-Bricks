@@ -17,8 +17,8 @@ public class Brick {
         return end;
     }
 
-    public String toString() {
-        return start + "," + end + " --> Height: " + height;
+    public int getLength(){
+        return end - start;
     }
 
     public void setHeight(int height) {
