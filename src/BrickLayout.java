@@ -78,7 +78,7 @@ public class BrickLayout {
     }
 
     public void fallingBricks(){
-        while (bricks.getFirst().getHeight() < 29){
+        while (bricks.getFirst().getHeight() != 29){
             placeOneBrick();
 
             for (int j = 0; j < (bricks.size() - bricks2.size()); j++) {
@@ -90,7 +90,12 @@ public class BrickLayout {
                     brickLayout[height][i] = 0;
                 }
 
-                bricks.get(j).incrHeight();
+                if (height < 29) {
+                    bricks.get(j).incrHeight();
+                } else {
+                    bricks.removeFirst();
+                }
+
                 for (int i = start; i <= end; i++) {
                     brickLayout[bricks.get(j).getHeight()][i] = 1;
                 }
