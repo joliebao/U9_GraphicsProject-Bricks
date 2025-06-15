@@ -39,29 +39,25 @@ public class DrawPanel extends JPanel implements MouseListener {
             for (int cols = 0; cols < 40; cols++){
                 g.drawRect(x,y,20,20);
 
-                g2.setColor(Color.lightGray);
-                g2.fillRect(x, y, 20, 20);
-
-                /* Part 1 -- per click
+                /* Part 1
                 if (b.checkBrickSpot(rows,cols)) {
                     g2.setColor(Color.blue);
                     g2.fillRect(x, y, 20, 20);
                 }
                 */
 
-                // Part 2 -- timed event
 
+                // Part 2 -- timed event
                 if (clicked && once){
                     time = System.currentTimeMillis();
                     once = false;
                 }
 
                 if (clicked) {
-                    if (System.currentTimeMillis() - time == 10) {
-                        Brick br = b.placeOneBrick();
-                        if (br != null) {
-                            b.fallingBricks(br);
-                        }
+//                    System.out.println(System.currentTimeMillis());
+//                    System.out.println(time);
+                    if (System.currentTimeMillis() - time == 5) {
+                        b.fallingBricks();
                         if (b.checkBrickSpot(rows, cols)) {
                             g2.setColor(Color.blue);
                             g2.fillRect(x, y, 20, 20);
@@ -80,7 +76,7 @@ public class DrawPanel extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         /* Part 1
         b.doOneBrick();
-        */
+         */
 
         // Part 2
         clicked = true;
