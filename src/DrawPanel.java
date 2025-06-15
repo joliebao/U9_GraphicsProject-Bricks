@@ -80,7 +80,6 @@ public class DrawPanel extends JPanel implements MouseListener {
 
         // Part 2
         clicked = true;
-        System.out.println(clicked);
     }
 
     @Override

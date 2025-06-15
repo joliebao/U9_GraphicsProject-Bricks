@@ -78,11 +78,10 @@ public class BrickLayout {
     }
 
     public void fallingBricks(){
-        System.out.println(bricks);
-
-        while (bricks.getFirst().getHeight() < 30){
+        while (bricks.getFirst().getHeight() < 29){
             placeOneBrick();
-            for (int j = 0; j < bricks.size() - bricks2.size(); j++) {
+
+            for (int j = 0; j < (bricks.size() - bricks2.size()); j++) {
                 int start = bricks.get(j).getStart();
                 int end = bricks.get(j).getEnd();
                 int height = bricks.get(j).getHeight();
@@ -93,11 +92,10 @@ public class BrickLayout {
 
                 bricks.get(j).incrHeight();
                 for (int i = start; i <= end; i++) {
-                    brickLayout[height][i] = 1;
+                    brickLayout[bricks.get(j).getHeight()][i] = 1;
                 }
             }
         }
-
         printBrickLayout();
     }
 
