@@ -56,7 +56,7 @@ public class DrawPanel extends JPanel implements MouseListener {
                 if (clicked) {
 //                    System.out.println(System.currentTimeMillis());
 //                    System.out.println(time);
-                    if (System.currentTimeMillis() - time == 5) {
+                    if (System.currentTimeMillis() - time == 10) {
                         b.fallingBricks();
                         if (b.checkBrickSpot(rows, cols)) {
                             g2.setColor(Color.blue);

@@ -64,7 +64,7 @@ public class BrickLayout {
     public void placeOneBrick(){ // redo
         int start;
         int end;
-        if (!bricks.isEmpty()) {
+        if (!bricks2.isEmpty()) {
             Brick b = bricks2.removeFirst();
             start = b.getStart();
             end = b.getEnd();
@@ -72,13 +72,12 @@ public class BrickLayout {
             for (int i = start; i <= end; i++) {
                 brickLayout[b.getHeight()][i] = 1;
             }
-
             printBrickLayout();
         }
     }
 
     public void fallingBricks(){
-        while (bricks.getFirst().getHeight() != 29){
+        while (!bricks.isEmpty()){
             placeOneBrick();
 
             for (int j = 0; j < (bricks.size() - bricks2.size()); j++) {
@@ -92,12 +91,15 @@ public class BrickLayout {
 
                 if (height < 29) {
                     bricks.get(j).incrHeight();
-                } else {
-                    bricks.removeFirst();
                 }
 
-                for (int i = start; i <= end; i++) {
-                    brickLayout[bricks.get(j).getHeight()][i] = 1;
+                if (height == 29 || checkUnderBrick(height, start, end - start)){
+                    bricks.remove(j);
+                    j--;
+                } else {
+                    for (int i = start; i <= end; i++) {
+                        brickLayout[bricks.get(j).getHeight()][i] = 1;
+                    }
                 }
             }
         }
