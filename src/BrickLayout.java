@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class BrickLayout {
-    private int l = 1;
+    private final int l = 1;
     private ArrayList<Brick> bricks = new ArrayList<Brick>();
     private ArrayList<Brick> bricks2 = new ArrayList<Brick>();
     private int[][] brickLayout;
@@ -78,28 +78,28 @@ public class BrickLayout {
 
     public void fallingBricks(){
         while (!bricks.isEmpty()){
-            placeOneBrick();
+            placeOneBrick(); // stops after all blocks are placed
 
+            // first round gets diff between the changing bricks
+            // second round gets bricks len
             for (int j = 0; j < (bricks.size() - bricks2.size()); j++) {
                 int start = bricks.get(j).getStart();
                 int end = bricks.get(j).getEnd();
                 int height = bricks.get(j).getHeight();
 
-                for (int i = start; i <= end; i++) {
-                    brickLayout[height][i] = 0;
-                }
+                if (height < 29 && !checkUnderBrick(height, start, end - start)) { // block moves down
+                    for (int i = start; i <= end; i++) { // set prev block to zeroes
+                        brickLayout[height][i] = 0;
+                    }
 
-                if (height < 29) {
                     bricks.get(j).incrHeight();
-                }
 
-                if (height == 29 || checkUnderBrick(height, start, end - start)){
-                    bricks.remove(j);
-                    j--;
-                } else {
-                    for (int i = start; i <= end; i++) {
+                    for (int i = start; i <= end; i++) { // new loc is filled with ones
                         brickLayout[bricks.get(j).getHeight()][i] = 1;
                     }
+                } else if (height == 29 || checkUnderBrick(height, start, end - start)){ // removes brick from list
+                    bricks.remove(j);
+                    j--;
                 }
             }
         }
@@ -110,16 +110,11 @@ public class BrickLayout {
         return brickLayout[r][c] == 1;
     }
 
-    public boolean checkUnderBrick(int r, int c, int length){
-        int count = 0;
+    public boolean checkUnderBrick(int r, int c, int length){ // check for the length of the brick
         for (int i = c; i < c + length; i++){
-            if (brickLayout[r+1][c] == 1){
-                count++;
+            if (brickLayout[r+1][i] == 1){
+                return true;
             }
-        }
-
-        if (count == length){
-            return true;
         }
         return false;
     }
@@ -169,3 +164,4 @@ public class BrickLayout {
         return fileData;
     }
 }
+
