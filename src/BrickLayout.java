@@ -72,12 +72,12 @@ public class BrickLayout {
             for (int i = start; i <= end; i++) {
                 brickLayout[b.getHeight()][i] = 1;
             }
-            printBrickLayout();
+//            printBrickLayout();
         }
     }
 
     public void fallingBricks(){
-        while (!bricks.isEmpty()){
+//        while (!bricks.isEmpty()){
             placeOneBrick(); // stops after all blocks are placed
 
             // first round gets diff between the changing bricks
@@ -102,7 +102,7 @@ public class BrickLayout {
                     j--;
                 }
             }
-        }
+//        }
         printBrickLayout();
     }
 
